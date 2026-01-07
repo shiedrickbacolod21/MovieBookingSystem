@@ -142,7 +142,7 @@ class MovieBookingSystemTest {
     
     @Test
     @Order(10)
-    @DisplayName("Book 0 tickets (invalid)")
+    @DisplayName("Test Case 10: Book 0 tickets (invalid)")
     void testBookZeroTicket_WhenBookZeroTicket_ReturnInvalidMessage() {
         system.bookTicket("10:00 AM", 0);
         assertTrue(outContent.toString()
@@ -151,7 +151,7 @@ class MovieBookingSystemTest {
 
     @Test
     @Order(11)
-    @DisplayName("Book negative tickets (invalid)")
+    @DisplayName("Test Case 11: Book negative tickets (invalid)")
     void testBookNegativeTicket_WhenBookNegativeTicket_ReturnInvalidMessage() {
         system.bookTicket("10:00 AM", -5);
         assertTrue(outContent.toString()
@@ -160,7 +160,7 @@ class MovieBookingSystemTest {
 
     @Test
     @Order(12)
-    @DisplayName("Cancel 0 tickets (invalid)")
+    @DisplayName("Test Case 12: Cancel 0 tickets (invalid)")
     void testCancelZeroTicket_WhenCancelZeroTicket_ReturnInvalidMessage() {
         system.cancelReservation("10:00 AM", 0);
         assertTrue(outContent.toString()
@@ -169,7 +169,7 @@ class MovieBookingSystemTest {
 
     @Test
     @Order(13)
-    @DisplayName("Cancel negative tickets (invalid)")
+    @DisplayName("Test Case 13: Cancel negative tickets (invalid)")
     void testCancelNegativeTicket_WhenCancelNegativeTicket_ReturnInvalidMessage() {
         system.cancelReservation("10:00 AM", -3);
         assertTrue(outContent.toString()
@@ -178,7 +178,7 @@ class MovieBookingSystemTest {
     
     @Test
     @Order(14)
-    @DisplayName("Book ticket with invalid showtime format")
+    @DisplayName("Test Case 14: Book ticket with invalid showtime format")
     void testBookInvalidShowTimeFormat_WhenBookInvalidShowTimeFormat_ReturnInvalidMessage() {
         system.bookTicket("TenOclock AM", 5);
 
@@ -190,7 +190,7 @@ class MovieBookingSystemTest {
 
     @Test
     @Order(15)
-    @DisplayName("Cancel reservation with invalid showtime format")
+    @DisplayName("Test Case 15: Cancel reservation with invalid showtime format")
     void testCancelInvalidShowTimeFormat_WhenCancelInvalidShowTimeFormat_ReturnInvalidMessage() {
         system.cancelReservation("OneOclock PM", 3);
 
