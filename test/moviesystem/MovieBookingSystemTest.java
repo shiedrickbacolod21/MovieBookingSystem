@@ -200,7 +200,6 @@ class MovieBookingSystemTest {
         );
     }
 
-
     @Test
     @DisplayName("Main Function")
     void testMain_ReturnVoid() {

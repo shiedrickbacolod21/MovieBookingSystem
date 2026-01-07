@@ -16,10 +16,14 @@ public class MovieBookingSystem extends BookingSystem {
      * Constructs the movie booking system.
      */
     public MovieBookingSystem() {
+        availableTickets.put("9:00 AM", totalCapacity);
         availableTickets.put("10:00 AM", totalCapacity);
+        availableTickets.put("12:00 PM", totalCapacity);
         availableTickets.put("1:00 PM", totalCapacity);
 
+        bookedTickets.put("9:00 AM", 0);
         bookedTickets.put("10:00 AM", 0);
+        bookedTickets.put("12:00 PM", 0);
         bookedTickets.put("1:00 PM", 0);
     }
 
@@ -27,8 +31,8 @@ public class MovieBookingSystem extends BookingSystem {
      * Retrieves the number of available tickets for a specific show time.
      *
      * @param showTime the time of the show to check
-     * @return the number of available tickets,
-     * or 0 if the show time is not found
+     * @return the number of available tickets, or 0 if the show time is not
+     *         found
      */
     public int getAvailableTickets(final String showTime) {
         return availableTickets.getOrDefault(showTime, 0);
@@ -38,19 +42,29 @@ public class MovieBookingSystem extends BookingSystem {
      * Retrieves the number of booked tickets for a specific show time.
      *
      * @param showTime the time of the show to check
-     * @return the number of booked tickets,
-     * or 0 if the show time is not found
+     * @return the number of booked tickets, or 0 if the show time is not found
      */
     public int getBookedTickets(final String showTime) {
         return bookedTickets.getOrDefault(showTime, 0);
     }
 
+    /**
+     * Validates the showtime format (e.g., 10:00 AM, 1:00 PM).
+     *
+     * @param showTime the showtime to validate
+     * @return true if valid, false otherwise
+     */
+    private boolean isValidShowTime(final String showTime) {
+        return showTime != null
+                && showTime.matches("^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$");
+    }
+
     @Override
     public final void checkAvailability(final String showTime) {
         if (availableTickets.containsKey(showTime)) {
-            System.out.println("=== Showtime: " + showTime
-                    + " == Available Ticket: "
-                    + availableTickets.get(showTime) + " ===");
+            System.out.println(
+                    "=== Showtime: " + showTime + " == Available Ticket: "
+                            + availableTickets.get(showTime) + " ===");
         } else {
             System.out.println("Showtime " + showTime + " not found. \n");
         }
@@ -60,8 +74,8 @@ public class MovieBookingSystem extends BookingSystem {
     public final void bookTicket(final String showTime, final int tickets) {
 
         if (!isValidShowTime(showTime)) {
-            System.out.println("[BOOK] Invalid showtime format: "
-                    + showTime + "\n");
+            System.out.println("[BOOK] Invalid showtime format: " + showTime
+                    + ". [Please use format h:mm AM/PM (e.g., 9:00 AM)]\n");
             return;
         }
 
@@ -101,8 +115,8 @@ public class MovieBookingSystem extends BookingSystem {
     public final void cancelReservation(final String showTime,
             final int tickets) {
         if (!isValidShowTime(showTime)) {
-            System.out.println("[CANCEL] Invalid showtime format: "
-                    + showTime + "\n");
+            System.out.println("[CANCEL] Invalid showtime format: " + showTime
+                    + ". [Please use format h:mm AM/PM (e.g., 9:00 AM)]\n");
             return;
         }
 
@@ -140,17 +154,6 @@ public class MovieBookingSystem extends BookingSystem {
     }
 
     /**
-     * Validates the showtime format (e.g., 10:00 AM, 1:00 PM).
-     *
-     * @param showTime the showtime to validate
-     * @return true if valid, false otherwise
-     */
-    private boolean isValidShowTime(final String showTime) {
-        return showTime != null
-                && showTime.matches("^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$");
-    }
-
-    /**
      * Display all showtimes and their availability.
      */
     public void displayShowtimes() {
@@ -175,26 +178,32 @@ public class MovieBookingSystem extends BookingSystem {
         final int cancel3 = 3;
         final int book2 = 2;
         final int cancel5 = 5;
+        final int bookNegative = -10;
 
         MovieBookingSystem system = new MovieBookingSystem();
 
         System.out.println("=== Movie Ticket Booking System ===\n");
         system.displayShowtimes();
 
-        // Test Case 1
         system.bookTicket("10:00 AM", book5);
 
-        // Test Case 2
         system.bookTicket("10:00 AM", book100);
 
-        // Test Case 3
         system.cancelReservation("10:00 AM", cancel3);
 
-        // Test Case 4
         system.bookTicket("1:00 PM", book2);
 
-        // Test Case 5
         system.cancelReservation("1:00 PM", cancel5);
+
+        system.bookTicket("11:00 AM", book5);
+
+        system.bookTicket("0:00 AM", book5);
+
+        system.cancelReservation("OneOclock PM", cancel5);
+
+        system.bookTicket("9:00 AM", bookNegative);
+
+        system.cancelReservation("9:00 AM", bookNegative);
     }
 
 }
