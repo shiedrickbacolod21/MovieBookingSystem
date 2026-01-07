@@ -58,13 +58,13 @@ public class MovieBookingSystem extends BookingSystem {
 
     @Override
     public final void bookTicket(final String showTime, final int tickets) {
-        
+
         if (!isValidShowTime(showTime)) {
             System.out.println("[BOOK] Invalid showtime format: "
                     + showTime + "\n");
             return;
         }
-        
+
         if (tickets <= 0) {
             System.out.println("[BOOK] Invalid number of tickets: " + tickets
                     + ". Must be greater than 0.\n");
@@ -105,7 +105,7 @@ public class MovieBookingSystem extends BookingSystem {
                     + showTime + "\n");
             return;
         }
-        
+
         if (tickets <= 0) {
             System.out.println("[CANCEL] Invalid number of tickets: " + tickets
                     + ". Must be greater than 0.\n");
