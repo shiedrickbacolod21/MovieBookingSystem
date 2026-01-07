@@ -175,6 +175,31 @@ class MovieBookingSystemTest {
         assertTrue(outContent.toString()
                 .contains("[CANCEL] Invalid number of tickets: -3"));
     }
+    
+    @Test
+    @Order(14)
+    @DisplayName("Book ticket with invalid showtime format")
+    void testBookInvalidShowTimeFormat_WhenBookInvalidShowTimeFormat_ReturnInvalidMessage() {
+        system.bookTicket("TenOclock AM", 5);
+
+        assertTrue(
+                outContent.toString()
+                        .contains("[BOOK] Invalid showtime format: TenOclock AM")
+        );
+    }
+
+    @Test
+    @Order(15)
+    @DisplayName("Cancel reservation with invalid showtime format")
+    void testCancelInvalidShowTimeFormat_WhenCancelInvalidShowTimeFormat_ReturnInvalidMessage() {
+        system.cancelReservation("OneOclock PM", 3);
+
+        assertTrue(
+                outContent.toString()
+                        .contains("[CANCEL] Invalid showtime format: OneOclock PM")
+        );
+    }
+
 
     @Test
     @DisplayName("Main Function")

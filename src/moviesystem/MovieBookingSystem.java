@@ -58,6 +58,13 @@ public class MovieBookingSystem extends BookingSystem {
 
     @Override
     public final void bookTicket(final String showTime, final int tickets) {
+        
+        if (!isValidShowTime(showTime)) {
+            System.out.println("[BOOK] Invalid showtime format: "
+                    + showTime + "\n");
+            return;
+        }
+        
         if (tickets <= 0) {
             System.out.println("[BOOK] Invalid number of tickets: " + tickets
                     + ". Must be greater than 0.\n");
@@ -93,6 +100,12 @@ public class MovieBookingSystem extends BookingSystem {
     @Override
     public final void cancelReservation(final String showTime,
             final int tickets) {
+        if (!isValidShowTime(showTime)) {
+            System.out.println("[CANCEL] Invalid showtime format: "
+                    + showTime + "\n");
+            return;
+        }
+        
         if (tickets <= 0) {
             System.out.println("[CANCEL] Invalid number of tickets: " + tickets
                     + ". Must be greater than 0.\n");
@@ -124,6 +137,17 @@ public class MovieBookingSystem extends BookingSystem {
                     + availableTickets.get(showTime) + ", Booked: "
                     + bookedTickets.get(showTime) + " ===\n");
         }
+    }
+
+    /**
+     * Validates the showtime format (e.g., 10:00 AM, 1:00 PM).
+     *
+     * @param showTime the showtime to validate
+     * @return true if valid, false otherwise
+     */
+    private boolean isValidShowTime(final String showTime) {
+        return showTime != null
+                && showTime.matches("^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$");
     }
 
     /**
